@@ -2,7 +2,11 @@ name: Bug report
 description: Report incorrect, unexpected, or inconsistent behavior in business-time
 title: "[Bug]: "
 labels:
-  - bug
+  - Bug Report
+  - Needs Reproduction
+assignees:
+  - himakhaitan
+type: bug
 
 body:
   - type: markdown

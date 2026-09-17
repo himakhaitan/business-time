@@ -58,7 +58,9 @@ func (c *Calendar) IsSameYear(a, b time.Time) bool {
 
 // AddYears returns value shifted by the specified number of calendar years.
 //
-// Calendar-year arithmetic follows time.Time's AddDate semantics.
+// This function is independent of Calendar configuration and does not
+// apply fiscal-year semantics. The calculation follows time.Time.AddDate
+// semantics.
 func AddYears(value time.Time, years int) time.Time {
 	return value.AddDate(years, 0, 0)
 }

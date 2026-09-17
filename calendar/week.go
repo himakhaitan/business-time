@@ -14,7 +14,7 @@ import (
 // This matters when the same instant falls on different calendar dates in
 // different time zones.
 //
-// Weekday itself is intrinsic to a date, while the Calendar's location
+// The weekday is a property of the local calendar date, while the Calendar's location
 // determines which local date the instant belongs to.
 //
 // For example, an instant that is Sunday in UTC may already be Monday in
@@ -146,11 +146,10 @@ func (c *Calendar) IsSameWeek(a, b time.Time) bool {
 // transitions, where a local week may contain fewer or more than 168 elapsed
 // hours.
 //
-// The returned time preserves the location and wall-clock time semantics of
-// value as defined by time.Time's AddDate behavior.
+// The calculation follows time.Time.AddDate semantics.
 //
 // A positive number moves value forward; a negative number moves it backward.
-// Zero returns a value representing the same instant.
+// Zero returns value unchanged.
 //
 // AddWeeks is independent of Calendar configuration and is therefore provided
 // as a package-level function rather than a Calendar method.

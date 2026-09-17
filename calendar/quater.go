@@ -23,23 +23,14 @@ import "time"
 //	October–December = Q3
 //	January–March   = Q4
 func (c *Calendar) StartOfQuarter(value time.Time) time.Time {
+	fiscalYearStart := c.StartOfYear(value)
+
 	local := value.In(c.location)
 
 	monthOffset := (int(local.Month()) - int(c.fiscalYearStart) + 12) % 12
 	quarterOffset := monthOffset / 3
 
-	startMonth := int(c.fiscalYearStart) + quarterOffset*3
-	if startMonth > 12 {
-		startMonth -= 12
-	}
-
-	return time.Date(
-		local.Year(),
-		time.Month(startMonth),
-		1,
-		0, 0, 0, 0,
-		c.location,
-	)
+	return fiscalYearStart.AddDate(0, quarterOffset*3, 0)
 }
 
 // EndOfQuarter returns the final representable instant of the fiscal quarter
@@ -86,6 +77,10 @@ func (c *Calendar) Quarter(value time.Time) int {
 // quarters.
 //
 // A quarter is treated as three calendar months rather than a fixed duration.
+// The calculation follows time.Time.AddDate semantics.
+//
+// AddQuarters is independent of Calendar configuration and therefore does not
+// apply fiscal-year or timezone-specific quarter semantics.
 func AddQuarters(value time.Time, quarters int) time.Time {
 	return value.AddDate(0, quarters*3, 0)
 }

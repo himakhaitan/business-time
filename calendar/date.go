@@ -1,8 +1,6 @@
 package calendar
 
-import (
-	"time"
-)
+import "time"
 
 // StartOfDay returns the first instant of the calendar day containing value.
 //
@@ -30,7 +28,6 @@ func (c *Calendar) StartOfDay(value time.Time) time.Time {
 		0, 0, 0, 0,
 		c.location,
 	)
-
 }
 
 // EndOfDay returns the final representable instant of the calendar day
@@ -96,9 +93,9 @@ func (c *Calendar) StartOfPreviousDay(value time.Time) time.Time {
 // to the Calendar's configured location.
 //
 // The comparison is based on the local year, month, and day after converting
-// both values into the Calendar's location. The absolute instants represented
-// by a and b may therefore be different, and the locations carried by the
-// input values do not affect the result.
+// both values into the Calendar's location. The timestamps may represent
+// different instants, and the locations carried by a and b do not affect the
+// result.
 //
 // This is useful when comparing timestamps from different systems, services,
 // or time zones while applying a single, well-defined business or application
@@ -114,7 +111,6 @@ func (c *Calendar) IsSameDay(a, b time.Time) bool {
 	return a.Year() == b.Year() &&
 		a.Month() == b.Month() &&
 		a.Day() == b.Day()
-
 }
 
 // DayOfYear returns the ordinal position of the calendar day within its year,

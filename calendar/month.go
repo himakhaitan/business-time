@@ -143,14 +143,11 @@ func (c *Calendar) DaysInMonth(value time.Time) int {
 // AddMonths returns value shifted by the specified number of calendar months.
 //
 // A calendar month is not treated as a fixed duration because months contain
-// different numbers of days. The operation therefore uses time.Time's
-// calendar-aware AddDate semantics.
+// different numbers of days. The calculation follows time.Time.AddDate
+// semantics.
 //
-// A positive number moves value forward; a negative number moves it backward.
-// Zero returns a value representing the same instant.
-//
-// AddMonths is independent of Calendar configuration and is therefore
-// provided as a package-level function rather than a Calendar method.
+// AddMonths is independent of Calendar configuration. It does not apply
+// timezone-specific calendar boundaries or fiscal-month semantics.
 func AddMonths(value time.Time, months int) time.Time {
 	return value.AddDate(0, months, 0)
 }

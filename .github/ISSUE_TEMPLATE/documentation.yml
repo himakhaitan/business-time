@@ -1,0 +1,64 @@
+name: 📖 Documentation
+description: Report missing, incorrect, or unclear documentation.
+title: "[Docs]: "
+labels:
+  - Documentation
+  - Needs Triage
+assignees:
+  - himakhaitan
+type: documentation
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Good documentation is part of a good API.
+
+        Please tell us what is unclear or missing and, if possible,
+        suggest what would make it easier to understand.
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Documentation issue
+      options:
+        - Incorrect information
+        - Missing documentation
+        - Unclear explanation
+        - Missing example
+        - API documentation
+        - README
+        - Typo / wording
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: Documentation location
+      description: Link to or describe the file, section, function, or page.
+      placeholder: "README.md — Calendar Time section"
+    validations:
+      required: true
+
+  - type: textarea
+    id: issue
+    attributes:
+      label: What's wrong?
+      description: Explain what is incorrect, missing, or confusing.
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested improvement
+      description: If you know how it could be improved, describe it here.
+      placeholder: "Add an example showing how StartOfDay behaves across DST..."
+
+  - type: textarea
+    id: example
+    attributes:
+      label: Example
+      description: If useful, provide an example of the documentation you expected.
+      render: go

@@ -267,3 +267,26 @@ func TestNewAcceptsDifferentLocations(t *testing.T) {
 		})
 	}
 }
+
+func mustLoadLocation(t *testing.T, name string) *time.Location {
+	t.Helper()
+
+	location, err := time.LoadLocation(name)
+	if err != nil {
+		t.Fatalf("failed to load timezone %q: %v", name, err)
+	}
+
+	return location
+
+}
+
+func mustNewCalendar(t *testing.T, cfg Config) *Calendar {
+	t.Helper()
+
+	cal, err := New(cfg)
+	if err != nil {
+		t.Fatalf("New() error = %v", err)
+	}
+
+	return cal
+}

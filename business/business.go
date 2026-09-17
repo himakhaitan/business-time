@@ -102,7 +102,7 @@ func New(config Config) (*BusinessCalendar, error) {
 
 	weekend := config.Weekend
 	if weekend == nil {
-		weekend = StandardWeekend()
+		return nil, ErrNilWeekend
 	}
 
 	return &BusinessCalendar{

@@ -97,75 +97,15 @@ func TestNew_NilCalendarWithWeekend(t *testing.T) {
 	}
 }
 
-func TestNew_DefaultWeekend(t *testing.T) {
+func TestNew_NilWeekend(t *testing.T) {
 	cal := testCalendar(t)
 
-	businessCal, err := New(Config{
+	_, err := New(Config{
 		Calendar: cal,
 	})
 
-	if err != nil {
-		t.Fatalf("New() error = %v", err)
-	}
-
-	if businessCal.Weekend() == nil {
-		t.Fatal("Weekend() returned nil")
-	}
-
-	tests := []struct {
-		name string
-		day  time.Weekday
-		want bool
-	}{
-		{
-			name: "sunday",
-			day:  time.Sunday,
-			want: true,
-		},
-		{
-			name: "monday",
-			day:  time.Monday,
-			want: false,
-		},
-		{
-			name: "tuesday",
-			day:  time.Tuesday,
-			want: false,
-		},
-		{
-			name: "wednesday",
-			day:  time.Wednesday,
-			want: false,
-		},
-		{
-			name: "thursday",
-			day:  time.Thursday,
-			want: false,
-		},
-		{
-			name: "friday",
-			day:  time.Friday,
-			want: false,
-		},
-		{
-			name: "saturday",
-			day:  time.Saturday,
-			want: true,
-		},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			got := businessCal.Weekend().IsWeekend(dateOnWeekday(tt.day))
-
-			if got != tt.want {
-				t.Errorf(
-					"Weekend().IsWeekend() = %v, want %v",
-					got,
-					tt.want,
-				)
-			}
-		})
+	if !errors.Is(err, ErrNilWeekend) {
+		t.Fatalf("New() error = %v, want %v", err, ErrNilWeekend)
 	}
 }
 
@@ -233,6 +173,7 @@ func TestNew_NilHolidays(t *testing.T) {
 
 	businessCal, err := New(Config{
 		Calendar: cal,
+		Weekend:  StandardWeekend(),
 	})
 
 	if err != nil {
@@ -256,6 +197,7 @@ func TestNew_CustomHolidays(t *testing.T) {
 
 	businessCal, err := New(Config{
 		Calendar: cal,
+		Weekend:  StandardWeekend(),
 		Holidays: holidays,
 	})
 
@@ -290,6 +232,7 @@ func TestNew_PreservesCalendarConfiguration(t *testing.T) {
 
 	businessCal, err := New(Config{
 		Calendar: cal,
+		Weekend:  StandardWeekend(),
 	})
 
 	if err != nil {
@@ -312,6 +255,7 @@ func TestCalendar(t *testing.T) {
 
 	businessCal, err := New(Config{
 		Calendar: cal,
+		Weekend:  StandardWeekend(),
 	})
 
 	if err != nil {
@@ -381,6 +325,7 @@ func TestHolidays(t *testing.T) {
 	businessCal, err := New(Config{
 		Calendar: cal,
 		Holidays: holidays,
+		Weekend:  StandardWeekend(),
 	})
 
 	if err != nil {
@@ -398,7 +343,7 @@ func TestHolidays(t *testing.T) {
 	}
 }
 
-func TestNew_DefaultWeekendWithHoliday(t *testing.T) {
+func TestNew_WeekendWithHoliday(t *testing.T) {
 	cal := testCalendar(t)
 
 	holidays := testHolidayCalendar{
@@ -409,6 +354,7 @@ func TestNew_DefaultWeekendWithHoliday(t *testing.T) {
 
 	businessCal, err := New(Config{
 		Calendar: cal,
+		Weekend:  StandardWeekend(),
 		Holidays: holidays,
 	})
 
@@ -416,31 +362,31 @@ func TestNew_DefaultWeekendWithHoliday(t *testing.T) {
 		t.Fatalf("New() error = %v", err)
 	}
 
-	// Weekend should still default to Saturday/Sunday when holidays are
-	// configured.
-	if !businessCal.Weekend().IsWeekend(
-		time.Date(2026, time.January, 3, 12, 0, 0, 0, time.UTC),
-	) {
+	saturday := time.Date(
+		2026, time.January, 3,
+		12, 0, 0, 0,
+		time.UTC,
+	)
+
+	sunday := time.Date(
+		2026, time.January, 4,
+		12, 0, 0, 0,
+		time.UTC,
+	)
+
+	monday := time.Date(
+		2026, time.January, 5,
+		12, 0, 0, 0,
+		time.UTC,
+	)
+
+	if !businessCal.Weekend().IsWeekend(saturday) {
 		t.Error("Saturday should be a weekend")
 	}
 
-	if !businessCal.Weekend().IsWeekend(
-		time.Date(2026, time.January, 4, 12, 0, 0, 0, time.UTC),
-	) {
+	if !businessCal.Weekend().IsWeekend(sunday) {
 		t.Error("Sunday should be a weekend")
 	}
-
-	// Monday is not a weekend but is configured as a holiday.
-	monday := time.Date(
-		2026,
-		time.January,
-		5,
-		12,
-		0,
-		0,
-		0,
-		time.UTC,
-	)
 
 	if businessCal.Weekend().IsWeekend(monday) {
 		t.Error("Monday should not be a weekend")

@@ -640,7 +640,8 @@ The idea is simple:
 * GitHub — [@himakhaitan](https://github.com/himakhaitan)
 * LinkedIn — [Himanshu Khaitan](https://www.linkedin.com/in/himakhaitan)
 
-<!-- And if `business-time` saved you from another timezone-induced headache, you can always: -->
-<!-- **[Buy me a coffee](YOUR_BUY_ME_A_COFFEE_URL)** -->
-<!-- Every coffee helps fund more open-source experiments, questionable ideas, and hopefully useful software. -->
-*Built with Go, curiosity, and an unreasonable amount of respect for `time.Time`.*
+And if `business-time` saved you from another timezone-induced headache, you can always:
+**[Buy me a coffee](https://buymeacoffee.com/himakhaitan)**
+Every coffee helps fund more open-source experiments, questionable ideas, and hopefully useful software.
+
+> *Built with Go, curiosity, and an unreasonable amount of respect for `time.Time`.*

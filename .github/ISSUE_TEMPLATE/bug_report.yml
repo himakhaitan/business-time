@@ -4,6 +4,7 @@ title: "[Bug]: "
 labels:
   - Bug Report
   - Needs Reproduction
+  - Needs Triage
 assignees:
   - himakhaitan
 type: bug

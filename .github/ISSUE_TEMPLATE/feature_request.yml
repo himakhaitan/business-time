@@ -1,38 +1,46 @@
 name: Feature request
-description: Propose new functionality for business-time
+description: Propose new functionality or improvements for business-time
 title: "[Feature]: "
 labels:
-  - enhancement
+  - Feature Request
+  - Needs Triage
+assignees:
+  - himakhaitan
+type: feature
 
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for proposing an improvement to `business-time`.
+        Thanks for taking the time to propose an improvement to `business-time`.
 
-        The project aims to provide small, predictable abstractions for
-        business-related time handling. New functionality should have clear
-        semantics and belong naturally within the project's package structure.
+        The project aims to provide small, predictable, and composable
+        abstractions for business-related time handling.
+
+        Good feature requests should describe the problem first, followed by
+        the proposed behavior and any relevant time semantics.
 
   - type: textarea
     id: problem
     attributes:
-      label: What problem does this solve?
-      description: Describe the problem or use case you are trying to address.
+      label: What problem are you trying to solve?
+      description: Describe the problem, use case, or limitation you have encountered.
       placeholder: |
         Developers currently need to implement fiscal-period calculations
         themselves when generating monthly business reports.
+
+        This becomes difficult when the fiscal year does not start in January.
     validations:
       required: true
 
   - type: textarea
     id: proposal
     attributes:
-      label: Proposed solution
-      description: Describe the functionality or behavior you would like to see.
+      label: What would you like to see?
+      description: Describe the behavior or functionality you are proposing.
       placeholder: |
-        Add functionality that provides fiscal month boundaries based on
-        the Calendar's configured fiscal year.
+        Add functionality for calculating fiscal month boundaries using the
+        Calendar's configured fiscal year start.
     validations:
       required: true
 
@@ -40,7 +48,7 @@ body:
     id: package
     attributes:
       label: Proposed package
-      description: Which package should own this functionality?
+      description: Which package do you think should own this functionality?
       options:
         - calendar
         - clock
@@ -58,7 +66,7 @@ body:
     id: api
     attributes:
       label: Proposed API
-      description: If you have an API design in mind, show an example.
+      description: If you have an API design in mind, provide an example.
       render: go
       placeholder: |
         func (c *Calendar) StartOfFiscalMonth(value time.Time) time.Time
@@ -70,11 +78,24 @@ body:
     attributes:
       label: Time semantics
       description: |
-        Explain the timezone, calendar boundary, DST, fiscal, or duration
-        semantics involved.
+        Describe any timezone, calendar boundary, DST, fiscal calendar,
+        or duration semantics that should apply.
       placeholder: |
         The calculation should use the Calendar's configured location.
-        It should use calendar arithmetic rather than fixed durations.
+
+        Fiscal months should follow the configured fiscal year start
+        and use calendar arithmetic rather than fixed durations.
+    validations:
+      required: false
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Example use case
+      description: Show how this functionality would be used in a real application.
+      placeholder: |
+        A reporting application uses an April-to-March fiscal year and needs
+        to determine the fiscal month containing a given timestamp.
     validations:
       required: false
 
@@ -82,10 +103,10 @@ body:
     id: alternatives
     attributes:
       label: Alternatives considered
-      description: What alternatives or existing APIs did you consider?
+      description: Describe existing APIs, workarounds, or other approaches you considered.
       placeholder: |
-        I considered implementing this in the calendar package, but the
-        functionality may belong in a future period package.
+        I currently calculate this manually using time.Date and AddDate,
+        but the implementation is repeated across several services.
     validations:
       required: false
 
@@ -93,7 +114,7 @@ body:
     id: context
     attributes:
       label: Additional context
-      description: Add examples, use cases, references, or other relevant context.
+      description: Add examples, references, related issues, or other useful information.
     validations:
       required: false
 
@@ -105,6 +126,8 @@ body:
         - label: I have searched existing issues for similar requests.
           required: true
         - label: I have considered whether this belongs in the existing package structure.
+          required: true
+        - label: I have considered the timezone and calendar semantics involved.
           required: true
         - label: I understand that a feature request does not guarantee implementation.
           required: true

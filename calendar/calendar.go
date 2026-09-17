@@ -1,30 +1,31 @@
-// Package calendar provides timezone-aware calendar operations for Go. 
+// Package calendar provides timezone-aware calendar operations for Go.
 //
 // The calendar package builds on Go's standard time package and provides
-// calendar semantics for days, weeks, months, quarters, and years. 
-// 
-// Unlike duration-based arithmetic, calendar operations account for the 
+// calendar semantics for days, weeks, months, quarters, and years.
+//
+// Unlike duration-based arithmetic, calendar operations account for the
 // configured timezone and calendar boundaries. This is important when
 // working across daylight-saving transitions, leap years, fiscal years,
 // and other calendar boundaries.
 //
 // A Calendar is configured with a location, week start, and fiscal year
-// start. These settings are used consistently by calendar operations. 
-// 
-// Example: 
-//  cal, err := calendar.New(calendar.Config{
-//     Location: time.UTC, 
-//     WeekStart: time.Monday,
-//     FiscalYearStart: time.January, 
-//  }) 
-//  if err != nil { 
-//     return err 
-//  } 
-//  start := cal.StartOfMonth(time.Now())
-//  end := cal.StartOfNextMonth(time.Now())
+// start. These settings are used consistently by calendar operations.
 //
-//  fmt.Println(start)
-//  fmt.Println(end)
+// Example:
+//
+//	cal, err := calendar.New(calendar.Config{
+//	   Location: time.UTC,
+//	   WeekStart: time.Monday,
+//	   FiscalYearStart: time.January,
+//	})
+//	if err != nil {
+//	   return err
+//	}
+//	start := cal.StartOfMonth(time.Now())
+//	end := cal.StartOfNextMonth(time.Now())
+//
+//	fmt.Println(start)
+//	fmt.Println(end)
 package calendar
 
 import (

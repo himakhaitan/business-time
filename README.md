@@ -636,7 +636,7 @@ The idea is simple:
 
 **Find me around the internet:**
 
-* Instagram — [@yourusername](https://www.instagram.com/hey.hima_)
+* Instagram — [@hey.hima_](https://www.instagram.com/hey.hima_)
 * GitHub — [@himakhaitan](https://github.com/himakhaitan)
 * LinkedIn — [Himanshu Khaitan](https://www.linkedin.com/in/himakhaitan)
 

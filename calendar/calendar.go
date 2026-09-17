@@ -29,8 +29,21 @@
 package calendar
 
 import (
+	"errors"
 	"fmt"
 	"time"
+)
+
+var (
+	// ErrLocationRequired indicates that a calendar location was not provided.
+	ErrLocationRequired = errors.New("calendar: location is required")
+
+	// ErrInvalidWeekStart indicates that the configured week start is invalid.
+	ErrInvalidWeekStart = errors.New("calendar: invalid week start")
+
+	// ErrInvalidFiscalYearStart indicates that the configured fiscal year
+	// start month is invalid.
+	ErrInvalidFiscalYearStart = errors.New("calendar: invalid fiscal year start")
 )
 
 // Config defines the calendar context used by Calendar.
@@ -105,16 +118,17 @@ type Calendar struct {
 // invalid week start or fiscal-year start.
 func New(cfg Config) (*Calendar, error) {
 	if cfg.Location == nil {
-		return nil, fmt.Errorf("calendar: location is required")
+		return nil, ErrLocationRequired
 	}
 
 	if cfg.WeekStart < time.Sunday || cfg.WeekStart > time.Saturday {
-		return nil, fmt.Errorf("calendar: invalid week start: %v", cfg.WeekStart)
+		return nil, fmt.Errorf("%w: %v", ErrInvalidWeekStart, cfg.WeekStart)
 	}
 
 	if cfg.FiscalYearStart < time.January || cfg.FiscalYearStart > time.December {
 		return nil, fmt.Errorf(
-			"calendar: invalid fiscal year start: %v",
+			"%w: %v",
+			ErrInvalidFiscalYearStart,
 			cfg.FiscalYearStart,
 		)
 	}

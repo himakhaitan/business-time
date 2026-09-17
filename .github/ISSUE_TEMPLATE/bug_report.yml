@@ -1,0 +1,104 @@
+name: Bug report
+description: Report incorrect or unexpected behavior in business-time
+title: "[Bug]: "
+labels:
+  - bug
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug.
+
+        `business-time` deals with calendar and time semantics where small
+        differences in timezone, DST, or boundary behavior can matter.
+        Please provide enough detail for the behavior to be reproduced.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Clearly describe the behavior you observed.
+      placeholder: |
+        StartOfDay returned the wrong local date when the Calendar was
+        configured with America/New_York.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+      description: Describe the expected behavior and why.
+      placeholder: |
+        I expected StartOfDay to return midnight for March 10 in the
+        configured America/New_York timezone.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Minimal reproduction
+      description: Provide the smallest Go program or test case that reproduces the issue.
+      render: go
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: business-time version
+      description: Which version of business-time are you using?
+      placeholder: "v1.0.0"
+    validations:
+      required: true
+
+  - type: input
+    id: go-version
+    attributes:
+      label: Go version
+      description: Run `go version` to find this.
+      placeholder: "go1.25.0"
+    validations:
+      required: true
+
+  - type: input
+    id: timezone
+    attributes:
+      label: Timezone
+      description: Which timezone is relevant to the issue?
+      placeholder: "America/New_York"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: conditions
+    attributes:
+      label: Relevant conditions
+      description: Select all that apply.
+      options:
+        - label: This occurs around a daylight-saving transition.
+        - label: This occurs around midnight or a calendar boundary.
+        - label: This involves a leap year or February.
+        - label: This involves a fiscal-year boundary.
+        - label: This involves a fiscal-quarter boundary.
+        - label: This involves values represented in different timezones.
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: Add logs, additional examples, links, or anything else that may help.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I have searched existing issues for duplicates.
+          required: true
+        - label: I have provided a minimal reproduction where possible.
+          required: true

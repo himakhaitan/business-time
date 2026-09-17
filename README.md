@@ -215,7 +215,7 @@ import (
     "fmt"
     "time"
 
-    "github.com/himanshukhaitan/business-time/calendar"
+    "github.com/himakhaitan/business-time/calendar"
 )
 
 func main() {
@@ -561,13 +561,13 @@ The resulting boundaries can be passed directly to APIs, databases, queues, jobs
 Install the module with:
 
 ```bash
-go get github.com/himanshukhaitan/business-time
+go get github.com/himakhaitan/business-time
 ```
 
 Then import the package you need:
 
 ```go
-import "github.com/himanshukhaitan/business-time/calendar"
+import "github.com/himakhaitan/business-time/calendar"
 ```
 
 ---

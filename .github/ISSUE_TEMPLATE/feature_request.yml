@@ -1,0 +1,110 @@
+name: Feature request
+description: Propose new functionality for business-time
+title: "[Feature]: "
+labels:
+  - enhancement
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for proposing an improvement to `business-time`.
+
+        The project aims to provide small, predictable abstractions for
+        business-related time handling. New functionality should have clear
+        semantics and belong naturally within the project's package structure.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Describe the problem or use case you are trying to address.
+      placeholder: |
+        Developers currently need to implement fiscal-period calculations
+        themselves when generating monthly business reports.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the functionality or behavior you would like to see.
+      placeholder: |
+        Add functionality that provides fiscal month boundaries based on
+        the Calendar's configured fiscal year.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: package
+    attributes:
+      label: Proposed package
+      description: Which package should own this functionality?
+      options:
+        - calendar
+        - clock
+        - business
+        - schedule
+        - duration
+        - deadline
+        - period
+        - New package
+        - Not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: api
+    attributes:
+      label: Proposed API
+      description: If you have an API design in mind, show an example.
+      render: go
+      placeholder: |
+        func (c *Calendar) StartOfFiscalMonth(value time.Time) time.Time
+    validations:
+      required: false
+
+  - type: textarea
+    id: semantics
+    attributes:
+      label: Time semantics
+      description: |
+        Explain the timezone, calendar boundary, DST, fiscal, or duration
+        semantics involved.
+      placeholder: |
+        The calculation should use the Calendar's configured location.
+        It should use calendar arithmetic rather than fixed durations.
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: What alternatives or existing APIs did you consider?
+      placeholder: |
+        I considered implementing this in the calendar package, but the
+        functionality may belong in a future period package.
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add examples, use cases, references, or other relevant context.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I have searched existing issues for similar requests.
+          required: true
+        - label: I have considered whether this belongs in the existing package structure.
+          required: true
+        - label: I understand that a feature request does not guarantee implementation.
+          required: true
